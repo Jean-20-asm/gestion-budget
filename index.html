@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Application simple de gestion de budget personnel">
+  <title>Gestion de Budget</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">MON ESPACE FINANCIER</p>
+        <h1>Gestion de Budget</h1>
+        <p class="subtitle">Suivez facilement vos revenus et vos dépenses.</p>
+      </div>
+      <button id="clearAllBtn" class="btn btn-danger-outline" type="button">Tout effacer</button>
+    </header>
+
+    <section class="summary-grid" aria-label="Résumé financier">
+      <article class="summary-card balance-card">
+        <span>Solde actuel</span>
+        <strong id="balance">0 Ar</strong>
+        <small>Revenus - Dépenses</small>
+      </article>
+      <article class="summary-card income-card">
+        <span>Total revenus</span>
+        <strong id="income">0 Ar</strong>
+        <small>Argent reçu</small>
+      </article>
+      <article class="summary-card expense-card">
+        <span>Total dépenses</span>
+        <strong id="expense">0 Ar</strong>
+        <small>Argent dépensé</small>
+      </article>
+    </section>
+
+    <section class="content-grid">
+      <article class="panel">
+        <div class="panel-heading">
+          <h2>Ajouter une transaction</h2>
+          <span class="panel-icon">＋</span>
+        </div>
+
+        <form id="transactionForm">
+          <label for="description">Description</label>
+          <input id="description" type="text" placeholder="Ex : Vente, repas, transport..." maxlength="80" required>
+
+          <label for="amount">Montant (Ariary)</label>
+          <input id="amount" type="number" min="1" step="1" placeholder="Ex : 10000" required>
+
+          <label for="type">Type</label>
+          <select id="type" required>
+            <option value="income">Revenu</option>
+            <option value="expense">Dépense</option>
+          </select>
+
+          <label for="category">Catégorie</label>
+          <select id="category" required>
+            <option value="Travail">Travail</option>
+            <option value="Vente">Vente</option>
+            <option value="Alimentation">Alimentation</option>
+            <option value="Transport">Transport</option>
+            <option value="Maison">Maison</option>
+            <option value="Éducation">Éducation</option>
+            <option value="Autre">Autre</option>
+          </select>
+
+          <label for="date">Date</label>
+          <input id="date" type="date" required>
+
+          <button class="btn btn-primary" type="submit">Ajouter la transaction</button>
+        </form>
+        <p id="formMessage" class="form-message" role="status"></p>
+      </article>
+
+      <article class="panel">
+        <div class="panel-heading">
+          <h2>Vue d'ensemble</h2>
+          <span class="panel-icon">◔</span>
+        </div>
+
+        <div class="chart" aria-label="Graphique revenus et dépenses">
+          <div class="chart-row">
+            <span>Revenus</span>
+            <div class="bar-track"><div id="incomeBar" class="bar income-bar"></div></div>
+            <strong id="incomePercent">0%</strong>
+          </div>
+          <div class="chart-row">
+            <span>Dépenses</span>
+            <div class="bar-track"><div id="expenseBar" class="bar expense-bar"></div></div>
+            <strong id="expensePercent">0%</strong>
+          </div>
+        </div>
+
+        <div class="tips">
+          <h3>Conseil</h3>
+          <p>Ajoutez chaque opération pour mieux comprendre vos habitudes financières.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="panel transactions-panel">
+      <div class="panel-heading transactions-heading">
+        <h2>Historique des transactions</h2>
+        <span id="transactionCount" class="count-badge">0 opération</span>
+      </div>
+
+      <div class="filters">
+        <input id="searchInput" type="search" placeholder="Rechercher une opération...">
+        <select id="filterType">
+          <option value="all">Tous les types</option>
+          <option value="income">Revenus</option>
+          <option value="expense">Dépenses</option>
+        </select>
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th>Catégorie</th>
+              <th>Date</th>
+              <th>Montant</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="transactionList"></tbody>
+        </table>
+      </div>
+
+      <div id="emptyState" class="empty-state">
+        <div class="empty-icon">▤</div>
+        <h3>Aucune transaction</h3>
+        <p>Ajoutez votre première opération pour commencer.</p>
+      </div>
+    </section>
+
+    <footer>
+      <p>Gestion de Budget • Projet personnel • Données conservées dans votre navigateur</p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
